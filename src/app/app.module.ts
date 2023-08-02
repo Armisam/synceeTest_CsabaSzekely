@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatDividerModule } from '@angular/material/divider'; 
+import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +33,12 @@ import { AuthGuard } from './services/auth-guard';
     AppRoutingModule,
     BrowserAnimationsModule,
     SocialLoginModule,
-    GoogleSigninButtonModule 
+    GoogleSigninButtonModule,
+    MatDividerModule,
+    FormsModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',

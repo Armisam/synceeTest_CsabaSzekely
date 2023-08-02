@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth-service';
+import { AbstractControl, FormControl, FormGroupDirective, NgForm, ValidatorFn, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +12,11 @@ import { AuthService } from '../services/auth-service';
 })
 export class LoginComponent  implements OnInit {
   loginSubscription!: Subscription;
+
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  passwordFormControl = new FormControl('', [Validators.required, this.passwordValidator(), this.minPasswordLengthValidator(5)]);
+
+  emailMatcher = new EmailErrorStateMatcher();
 
   constructor(private authService: AuthService ,private router: Router) {}
 
@@ -29,5 +36,39 @@ export class LoginComponent  implements OnInit {
 
   triggerChildClick() {
     this.childButtonRef.nativeElement.click();
+  }
+
+  passwordValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const password: string = control.value;
+      const lowercaseRegex = /[a-z]/;
+      const uppercaseRegex = /[A-Z]/;
+      const specialCharRegex = /[\/*?]/;
+  
+      const hasLowercase = lowercaseRegex.test(password);
+      const hasUppercase = uppercaseRegex.test(password);
+      const hasSpecialChar = specialCharRegex.test(password);
+  
+      const valid = hasLowercase && hasUppercase && hasSpecialChar;
+  
+      return valid ? null : { passwordRequirements: true };
+    };
+  }
+
+  minPasswordLengthValidator(minLength: number): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const password: string = control.value;
+      const isMinLengthValid = password.length >= minLength;
+  
+      return isMinLengthValid ? null : { minLength: true };
+    };
+  }
+}
+
+
+export class EmailErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }

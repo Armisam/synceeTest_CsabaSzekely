@@ -15,6 +15,7 @@
 
     .login-container {
         padding: 50px 100px 30px;
+        display: grid;
 
         .syncee-logo {
             height: 32px;
@@ -22,7 +23,6 @@
         }
 
         .title {
-            margin-top: 50px;
             font-size: 32px;
             font-weight: bold;
         }
@@ -31,10 +31,53 @@
             color: gray;
         }
 
+        button {
+            cursor: pointer;
+            border-radius: 30px;
+        }
+
         .google-button {
+            height: 70px;
+            font-size: 20px;
+            font-weight: bold;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             align-items: center;
+            justify-items: center;
+            background-color: white;
+
+            &:hover {
+                background-color: #eee;
+            }
+
+            .google-button-text {
+                margin-left: 8px;
+                justify-self: start;
+            }
         }
+
+        .custom-divider {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            color: grey;
+          }
+          
+          .mat-divider {
+            flex: 1;
+          }
+          
+          .divider-label {
+            margin: 0 10px;
+          }
+
+          label {
+            font-size: 20px;
+
+            &::after {
+                content: '*';
+                color: rebeccapurple;
+            }
+          }
     }
 }
