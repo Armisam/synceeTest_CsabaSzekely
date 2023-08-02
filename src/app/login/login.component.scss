@@ -1,0 +1,34 @@
+.page-container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    @media screen and (max-width: 600px){
+        grid-template-columns: 1fr;
+    }
+
+    .wallpaper {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .login-container {
+        padding: 50px 100px 30px;
+
+        .syncee-logo {
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .title {
+            margin-top: 50px;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .co-title {
+            color: gray;
+        }
+    }
+}
