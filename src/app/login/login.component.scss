@@ -30,5 +30,11 @@
         .co-title {
             color: gray;
         }
+
+        .google-button {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            align-items: center;
+        }
     }
 }

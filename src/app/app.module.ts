@@ -8,13 +8,21 @@ import { ResgisterComponent } from './resgister/resgister.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { GoogleLoggedinComponent } from './google-loggedin/google-loggedin.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthService } from './services/auth-service';
+import { PasswordLoggedinComponent } from './password-loggedin/password-loggedin.component';
+import { AuthGuard } from './services/auth-guard';
 
 @NgModule({
   declarations: [
     AppComponent,
     ResgisterComponent,
     ForgotPasswordComponent,
-    LoginComponent
+    LoginComponent,
+    GoogleLoggedinComponent,
+    PageNotFoundComponent,
+    PasswordLoggedinComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +42,9 @@ import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig,
         }
       ]
     } as SocialAuthServiceConfig
-  } 
+  },
+  AuthService,
+  AuthGuard
 ],
   bootstrap: [AppComponent]
 })
