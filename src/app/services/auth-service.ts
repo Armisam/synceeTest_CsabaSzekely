@@ -8,6 +8,8 @@ import { Observable, map } from 'rxjs';
 export class AuthService {
   constructor(private socialAuthService: SocialAuthService) { }
 
+  normalLoginEmail:string | null = '';
+
   isLoggedIn(): Observable<boolean> {
     return this.socialAuthService.authState.pipe(map((user) => user !== null));
   }

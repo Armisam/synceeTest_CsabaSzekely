@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider'; 
 import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,8 +19,9 @@ import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig,
 import { GoogleLoggedinComponent } from './google-loggedin/google-loggedin.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthService } from './services/auth-service';
-import { PasswordLoggedinComponent } from './password-loggedin/password-loggedin.component';
 import { AuthGuard } from './services/auth-guard';
+import { NormalLoggedinComponent } from './normal-loggedin/normal-loggedin.component';
+import { ListingPageComponent } from './listing-page/listing-page.component';
 
 @NgModule({
   declarations: [
@@ -26,10 +31,12 @@ import { AuthGuard } from './services/auth-guard';
     LoginComponent,
     GoogleLoggedinComponent,
     PageNotFoundComponent,
-    PasswordLoggedinComponent
+    NormalLoggedinComponent,
+    ListingPageComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SocialLoginModule,
@@ -38,7 +45,10 @@ import { AuthGuard } from './services/auth-guard';
     FormsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatTableModule
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',

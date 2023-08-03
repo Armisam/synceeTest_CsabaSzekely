@@ -1,27 +1,24 @@
+<a routerLink="/listingpage" style="display: block; text-align: center; background-color: #eee;">Link to listing page </a>
 <div class="page-container">
   <div class="login-container">
     <img class="syncee-logo" src="../../assets/syncee-logo-300px.png" />
     <h1 class="title">Login</h1>
     <span class="co-title">See your growth and get consulting support!</span>
-    <button
-      class="google-button"
-      (click)="triggerChildClick()"
-      mat-button
-      color="primary"
-    >
+    <span class="google-button-text">Sign in with Google</span>
       <asl-google-signin-button
         type="icon"
         size="large"
-        #childButton
+        text="signin_with"
+        shape="pill"
+        logo_alignment="left"
       ></asl-google-signin-button
-      ><span class="google-button-text">Sign in with Google</span>
-    </button>
+      >
     <div class="custom-divider">
       <mat-divider></mat-divider>
       <span class="divider-label">or Sign in with Email</span>
       <mat-divider></mat-divider>
     </div>
-    <label mat-label>Email</label>
+    <label class="custom-label">Email</label>
     <mat-form-field>
         <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="emailMatcher"
                placeholder="mail@website.com">
@@ -32,7 +29,7 @@
           Email is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-    <label mat-label>Password</label>
+    <label class="custom-label">Password</label>
     <mat-form-field>
         <input type="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="emailMatcher"
                placeholder="Min. 5 character">
@@ -42,6 +39,9 @@
         <mat-error *ngIf="passwordFormControl.hasError('minLength') && !passwordFormControl.hasError('required')">Password must contain at least 5 characters!</mat-error>
         <mat-error *ngIf="passwordFormControl.hasError('passwordRequirements') && !passwordFormControl.hasError('required') && !passwordFormControl.hasError('minLength')">Password must contain lowercase, uppercase, and at least one of *, /, ?</mat-error>
       </mat-form-field>
+      <div class="forgot-wrapper"><mat-checkbox color="primary">Remember me</mat-checkbox><a>Forget password?</a></div>
+      <button (click)="login()" mat-raised-button color="primary">Login</button>
+      <span class="copyright">2022 Syncee, All rights reserved</span>
   </div>
   <img
     class="wallpaper"

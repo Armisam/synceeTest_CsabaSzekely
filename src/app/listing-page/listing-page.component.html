@@ -1,0 +1,22 @@
+<table mat-table [dataSource]="currencies">
+    <!-- Column Definitions -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let currency">{{ currency.id }}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let currency">{{ currency.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="min_size">
+        <th mat-header-cell *matHeaderCellDef>Minimum Size</th>
+        <td mat-cell *matCellDef="let currency">{{ currency.min_size }}</td>
+      </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit,} from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth-service';
@@ -14,7 +14,7 @@ export class LoginComponent  implements OnInit {
   loginSubscription!: Subscription;
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  passwordFormControl = new FormControl('', [Validators.required, this.passwordValidator(), this.minPasswordLengthValidator(5)]);
+  passwordFormControl = new FormControl('', [Validators.required, this.passwordRequirementsValidator()]);
 
   emailMatcher = new EmailErrorStateMatcher();
 
@@ -32,35 +32,34 @@ export class LoginComponent  implements OnInit {
     this.loginSubscription.unsubscribe();
   }
 
-  @ViewChild('childButton', { static: true }) childButtonRef!: ElementRef<HTMLButtonElement>;
-
-  triggerChildClick() {
-    this.childButtonRef.nativeElement.click();
+  login(){
+    if(this.emailFormControl.valid && this.passwordFormControl.valid) {
+      this.authService.normalLoginEmail = this.emailFormControl.value;
+      this.router.navigate(['/loggedinwithnormal']);
+    }
   }
 
-  passwordValidator(): ValidatorFn {
+  passwordRequirementsValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const password: string = control.value;
       const lowercaseRegex = /[a-z]/;
       const uppercaseRegex = /[A-Z]/;
-      const specialCharRegex = /[\/*?]/;
+      const specialCharRegex = /[*/?]/;
   
       const hasLowercase = lowercaseRegex.test(password);
       const hasUppercase = uppercaseRegex.test(password);
       const hasSpecialChar = specialCharRegex.test(password);
   
-      const valid = hasLowercase && hasUppercase && hasSpecialChar;
+      const validMinLength = password.length >= 5;
+      const validRequirements = hasLowercase && hasUppercase && hasSpecialChar;
   
-      return valid ? null : { passwordRequirements: true };
-    };
-  }
-
-  minPasswordLengthValidator(minLength: number): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const password: string = control.value;
-      const isMinLengthValid = password.length >= minLength;
-  
-      return isMinLengthValid ? null : { minLength: true };
+      if (validMinLength && validRequirements) {
+        return null;
+      } else if (!validMinLength) {
+        return { minLength: true };
+      } else {
+        return { passwordRequirements: true };
+      }
     };
   }
 }
